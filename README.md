@@ -58,13 +58,30 @@ n'est pas un système d'accès strict : ne stocke rien de sensible dans les
 profils (prénom/surnom uniquement), et les rooms sont prévues pour être
 éphémères.
 
-## Déploiement
+## Déploiement sur Railway
 
-L'app est un site statique Vite standard (`npm run build` → dossier `dist/`)
-et peut être déployée sur Vercel, Netlify, Railway ou tout hébergeur de sites
-statiques. Si le mode en ligne est activé, pense à renseigner les variables
-d'environnement `VITE_SUPABASE_URL` et `VITE_SUPABASE_ANON_KEY` dans les
-réglages de l'hébergeur (mêmes valeurs que `.env.local`).
+Le dépôt contient tout ce qu'il faut (`railway.json`, `server.js`) pour un
+déploiement en un clic.
+
+1. Sur [railway.app](https://railway.app), **New Project** → **Deploy from
+   GitHub repo** → choisis ce dépôt (`Afterdark-`).
+2. Railway détecte automatiquement `railway.json` : build avec
+   `npm run build`, démarrage avec `npm run start`.
+3. **Avant le premier déploiement** (ou avant de relancer un build), ouvre
+   l'onglet **Variables** du service et ajoute :
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+
+   ⚠️ Important : ce sont des variables lues **au moment du build** (Vite les
+   intègre dans le code à la compilation), pas au runtime. Si tu les ajoutes
+   après un déploiement, il faut redéclencher un build (**Deploy** →
+   **Redeploy**) pour qu'elles prennent effet.
+4. Railway te donne une URL publique (`*.up.railway.app`) une fois le
+   déploiement terminé — c'est le lien à partager pour jouer en ligne.
+
+Le projet se déploie aussi tel quel sur Vercel ou Netlify (mêmes variables
+d'environnement, pas besoin de `server.js` ni `railway.json` sur ces
+plateformes qui servent les sites statiques nativement).
 
 ## Stack
 
