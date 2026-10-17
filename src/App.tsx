@@ -9,11 +9,13 @@ import { Customize } from './screens/Customize'
 import { Rules } from './screens/Rules'
 import { GameScreen } from './screens/GameScreen'
 import { EndScreen } from './screens/EndScreen'
+import { OnlineApp } from './screens/online/OnlineApp'
 
 function App() {
   const engine = useAfterDark()
   const { phase, goTo } = engine
   const [customizeReturnTo, setCustomizeReturnTo] = useState<'home' | 'mode-select'>('home')
+  const [onlineActive, setOnlineActive] = useState(false)
 
   if (phase === 'boot') {
     return <AppLoader />
@@ -28,10 +30,15 @@ function App() {
     )
   }
 
+  if (onlineActive) {
+    return <OnlineApp onExit={() => setOnlineActive(false)} />
+  }
+
   if (phase === 'home') {
     return (
       <Home
         onStart={() => goTo('setup')}
+        onPlayOnline={() => setOnlineActive(true)}
         onCustomize={() => {
           setCustomizeReturnTo('home')
           goTo('customize')

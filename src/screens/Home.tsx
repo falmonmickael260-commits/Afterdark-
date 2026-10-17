@@ -6,12 +6,13 @@ import { LIBRARY_STATS } from '../data/cards'
 
 interface Props {
   onStart: () => void
+  onPlayOnline: () => void
   onCustomize: () => void
   onRules: () => void
   onResetMajority: () => void
 }
 
-export function Home({ onStart, onCustomize, onRules, onResetMajority }: Props) {
+export function Home({ onStart, onPlayOnline, onCustomize, onRules, onResetMajority }: Props) {
   return (
     <div className="relative min-h-screen bg-afterdark flex flex-col items-center justify-center p-6">
       <ParticleField count={32} />
@@ -29,7 +30,10 @@ export function Home({ onStart, onCustomize, onRules, onResetMajority }: Props) 
 
         <div className="mt-10 w-full flex flex-col gap-3">
           <Button onClick={onStart} fullWidth>
-            Commencer la partie
+            Jouer en local (même téléphone)
+          </Button>
+          <Button onClick={onPlayOnline} fullWidth variant="secondary" className="!border-[#ff6bd6]/40">
+            🌐 Jouer en ligne (à distance)
           </Button>
           <Button variant="secondary" onClick={onCustomize} fullWidth>
             Personnaliser mon jeu
